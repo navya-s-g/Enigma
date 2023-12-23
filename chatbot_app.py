@@ -41,9 +41,6 @@ def get_class_schedule(role, user_id, input_method):
         if input_method == 'text':
             display_schedule_text(schedule)
         elif input_method == 'audio':
-            eng = pyttsx3.init('sapi5')
-            voices = eng.getProperty('voices')
-            eng.setProperty('voice', voices[1].id)
             display_schedule_audio(schedule, eng)
 
 def manage_classes(role, user_id, input_method):
@@ -52,9 +49,6 @@ def manage_classes(role, user_id, input_method):
         time = st.text_input("Enter the class time: ")
         subject = st.text_input("Enter the subject: ")
     elif input_method == 'audio':
-        eng = pyttsx3.init('sapi5')
-        voices = eng.getProperty('voices')
-        eng.setProperty('voice', voices[1].id)
 
         st.write("Which day of the week?")
         eng.say("Which day of the week?")
@@ -151,9 +145,6 @@ def main():
         ui = st.text_input("Enter your query:")
 
     elif input_method == 'audio':
-        eng = pyttsx3.init('sapi5')
-        voices = eng.getProperty('voices')
-        eng.setProperty('voice', voices[1].id)
         st.warning("What is your query?")
         eng.say("What is your query?")
         eng.runAndWait()
