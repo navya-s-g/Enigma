@@ -1,0 +1,6 @@
+S_No.,day,time,subject,student_id,tutor_id
+1,Monday,10:00 AM,Database System,32,74
+2,Wednesday,2:00 PM,Artificial Intelligence,32,74
+3,Friday,11:30 AM,Machine Learning,24,74
+4,Tuesday,9:00 AM,Operating Systems,24,32
+5,Thursday,3:30 PM,C++,32,26
