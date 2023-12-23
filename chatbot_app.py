@@ -4,6 +4,7 @@ import pyttsx3
 import speech_recognition as tp
 from datetime import datetime
 import pandas as pd
+import comtypes.client
 
 # Load data from CSV
 data = pd.read_csv('Classes.csv')
