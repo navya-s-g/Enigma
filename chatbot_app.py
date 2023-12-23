@@ -41,6 +41,9 @@ def get_class_schedule(role, user_id, input_method):
         if input_method == 'text':
             display_schedule_text(schedule)
         elif input_method == 'audio':
+            eng = pyttsx3.init('sapi5')
+            voices = eng.getProperty('voices')
+            eng.setProperty('voice', voices[1].id)
             display_schedule_audio(schedule, eng)
 
 def manage_classes(role, user_id, input_method):
@@ -49,6 +52,9 @@ def manage_classes(role, user_id, input_method):
         time = st.text_input("Enter the class time: ")
         subject = st.text_input("Enter the subject: ")
     elif input_method == 'audio':
+        eng = pyttsx3.init('sapi5')
+        voices = eng.getProperty('voices')
+        eng.setProperty('voice', voices[1].id)
 
         st.write("Which day of the week?")
         eng.say("Which day of the week?")
@@ -145,6 +151,9 @@ def main():
         ui = st.text_input("Enter your query:")
 
     elif input_method == 'audio':
+        eng = pyttsx3.init('sapi5')
+        voices = eng.getProperty('voices')
+        eng.setProperty('voice', voices[1].id)
         st.warning("What is your query?")
         eng.say("What is your query?")
         eng.runAndWait()
@@ -182,14 +191,14 @@ def main():
                     st.write("try again")
                     eng.say("try again")
                     return
-            
+
             st.warning("What is your ID?")
             eng.say("What is your ID?")
             eng.runAndWait()
             rec2 = tp.Recognizer()
             with tp.Microphone() as source:
                 #st.write("user->", end='')
-                
+
                 aa = rec2.listen(source)
                 try:
                     user_id = rec2.recognize_google(aa, language='en-in')
@@ -199,14 +208,14 @@ def main():
                     st.write("try again")
                     eng.say("Try again")
                     return
-            
+
         get_class_schedule(role, user_id, input_method)
-    
+
     elif ui and any(keyword in ui for keyword in ['manage classes', 'cancel', 'add', 'insert', 'remove']):
         if input_method == 'text':
             role = st.text_input("Are you a 'student' or 'tutor'? ").lower()
             user_id = st.text_input("Enter your ID: ")
-        
+
         elif input_method == 'audio':
             st.write("Are you a student or tutor?")
             rec1 = tp.Recognizer()
@@ -221,12 +230,12 @@ def main():
                 except:
                     st.write("try again")
                     return
-                    
+
             st.write("What is your ID?")
             rec2 = tp.Recognizer()
             with tp.Microphone() as source:
                 st.write("user->", end='')
-                
+
                 aa = rec2.listen(source)
                 try:
                     user_id = rec2.recognize_google(aa, language='en-in')
@@ -237,6 +246,12 @@ def main():
                     return
 
         manage_classes(role, user_id, input_method)
+
+    elif ui is None and input_method == 'audio':
+        st.write("No speech detected. Please try again.")
+
+if __name__ == "__main__":
+    main()
 
     elif ui is None and input_method == 'audio':
         st.write("No speech detected. Please try again.")
